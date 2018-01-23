@@ -71,11 +71,12 @@ EOF
 
 
 ############ Downloading jdk1.8.0_131_x64,  recomposer.jar #######################################
-echo "**** Downloading jdk1.8.0_131_x64 from s3Key:d5eab6c07320844df2961afd84f95df8"
-${AWS_CMD:?} s3 cp s3://${AWS_S3_BUCKET_NAME:?}/d5eab6c07320844df2961afd84f95df8 - | tar xzm --strip-components=1 -C . 2>&1
+JAVA_VERSION="$(basename $JAVA_HOME)"
+echo "**** Downloading $JAVA_VERSION from s3..."
+${AWS_CMD:?} s3 cp s3://${AWS_S3_BUCKET_NAME:?}/$JAVA_VERSION.tar.gz - | tar xzm --strip-components=1 -C $JAVA_HOME 2>&1
 echo "Completed downloading jdk1.8.0_131_x64 from s3Key:d5eab6c07320844df2961afd84f95df8"
 echo "**** Downloading recomposer.jar from s3..."
- ${AWS_CMD:?} s3 cp s3://${AWS_S3_BUCKET_NAME:?}/recompose-0.0.10-SNAPSHOT.jar recomposer.jar 2>&1
+ ${AWS_CMD:?} s3 cp s3://${AWS_S3_BUCKET_NAME:?}/recompose-$RECOMPOSE_VERSION.jar recomposer.jar 2>&1
 ###################################################################################################
 
 
